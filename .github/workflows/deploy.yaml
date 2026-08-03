@@ -14,17 +14,16 @@ jobs:
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
-      #   with:
-      #     node-version: "24.18.1"
+        with:
+          node-version: "24.18.1"
 
-      # - run: node -v
-      # - run: npm -v
+      - run: node -v
+      - run: npm -v
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
 
         with:
-          node-version: "24.18.1"
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
