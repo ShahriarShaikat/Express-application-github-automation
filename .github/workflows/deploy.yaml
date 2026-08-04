@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout code for github actions deployment
         uses: actions/checkout@v5
 
       - name: Setup Node.js
