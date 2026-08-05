@@ -7,27 +7,38 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+
     steps:
-      - name: Checkout code for github actions deployment
-        uses: actions/checkout@v5
+      - name: Deploy
+        run: |
+          cd /var/www/html/Express-application-github-automation
+          git pull
+          docker compose up -d --build
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "24.18.1"
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code for github actions deployment
+#         uses: actions/checkout@v5
 
-      - run: node -v
-      - run: npm -v
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: "24.18.1"
 
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
+#       - run: node -v
+#       - run: npm -v
 
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd /var/www/html/Express-application-github-automation
-            git pull
-            docker compose up -d --build
+#       - name: Deploy via SSH
+#         uses: appleboy/ssh-action@v1.0.3
+
+#         with:
+#           host: ${{ secrets.SSH_HOST }}
+#           username: ${{ secrets.SSH_USERNAME }}
+#           key: ${{ secrets.SSH_KEY }}
+#           script: |
+#             cd /var/www/html/Express-application-github-automation
+#             git pull
+#             docker compose up -d --build
